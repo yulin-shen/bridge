@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springboot.mapper.BridgeMapper">
+
+
+    <update id="update">
+        update bridge
+        <set>
+            <if test="bridge_name != null">
+                bridge_name=#{bridge_name},
+            </if>
+            <if test="bridge_address != null">
+                bridge_address=#{bridge_address},
+            </if>
+            <if test="create_date != null">
+                create_date=#{create_date},
+            </if>
+            <if test="bridge_type != null">
+                bridge_type=#{bridge_type},
+            </if>
+            <if test="bridge_length != null">
+                bridge_length=#{bridge_length},
+            </if>
+            <if test="bridge_width != null">
+                bridge_width=#{bridge_width},
+            </if>
+            <if test="design_life != null">
+                design_life=#{design_life},
+            </if>
+            <if test="design_load != null">
+                design_load=#{design_load},
+            </if>
+            <if test="direct_inspector != null">
+                direct_inspector=#{direct_inspector}
+            </if>
+        </set>
+        <where>
+            bridge_id=#{bridge_id}
+        </where>
+    </update>
+
+</mapper>

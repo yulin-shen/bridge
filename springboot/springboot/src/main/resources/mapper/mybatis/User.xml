@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springboot.mapper.UserMapper">
+
+    <update id="update">
+        update commonadmin
+        <set>
+            <if test="admin_name !=null">
+                admin_name=#{admin_name},
+            </if>
+            <if test="admin_account !=null">
+                admin_account=#{admin_account},
+            </if>
+            <if test="admin_pd !=null">
+                admin_pd=#{admin_pd},
+            </if>
+            <if test="admin_sex !=null">
+                admin_sex=#{admin_sex},
+            </if>
+            <if test="admin_phone !=null">
+                admin_phone=#{admin_phone},
+            </if>
+            <if test="admin_email !=null">
+                admin_email=#{admin_email}
+            </if>
+        </set>
+         <where>
+       admin_id=#{admin_id}
+        </where>
+    </update>
+
+</mapper>

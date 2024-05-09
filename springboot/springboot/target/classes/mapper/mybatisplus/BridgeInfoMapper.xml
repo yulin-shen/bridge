@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springboot.mapper1.BridgeInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.springboot.entity.BridgeInfo">
+        <id property="bridgeId" column="bridge_id" jdbcType="INTEGER"/>
+        <result property="bridgeName" column="bridge_name" jdbcType="VARCHAR"/>
+        <result property="bridgeAddress" column="bridge_address" jdbcType="VARCHAR"/>
+        <result property="createDate" column="create_date" jdbcType="DATE"/>
+        <result property="bridgeType" column="bridge_type" jdbcType="INTEGER"/>
+        <result property="bridgeLength" column="bridge_length" jdbcType="DOUBLE"/>
+        <result property="bridgeWidth" column="bridge_width" jdbcType="DOUBLE"/>
+        <result property="designLife" column="design_life" jdbcType="VARCHAR"/>
+        <result property="designLoad" column="design_load" jdbcType="VARCHAR"/>
+        <result property="directInspector" column="direct_inspector" jdbcType="VARCHAR"/>
+        <result property="bridgeTypeName" column="bridge_type_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        bridge_id,bridge_name,bridge_address,
+        create_date,bridge_type,bridge_length,
+        bridge_width,design_life,design_load,
+        direct_inspector
+    </sql>
+    <select id="selectBridgeList" resultType="com.example.springboot.entity.BridgeInfo"
+            parameterType="com.example.springboot.entity.BridgeInfo">
+        select
+        b.bridge_id as bridge_id,
+        bt.bridge_type_name as bridge_type_name,
+        b.bridge_name as bridge_name,
+        b.bridge_address as bridge_address,
+        b.create_date as create_date,
+        b.bridge_type as bridge_type,
+        b.bridge_length as bridge_length,
+        b.bridge_width as bridge_width,
+        b.design_life as design_life,
+        b.design_load as design_load,
+        b.direct_inspector as direct_inspector
+        from bridge b
+        join bridge_type bt on b.bridge_type = bt.bridge_type_id
+        <where>
+            <if test="bridgeId != null">
+                and b.bridge_id = #{bridgeId}
+            </if>
+            <if test="bridgeName != null">
+                and b.bridge_name = #{bridgeName}
+            </if>
+            <if test="bridgeAddress != null">
+                and b.bridge_address = #{bridgeAddress}
+            </if>
+            <if test="createDate != null">
+                and b.create_date = #{createDate}
+            </if>
+            <if test="bridgeType != null">
+                and b.bridge_type = #{bridgeType}
+            </if>
+            <if test="bridgeLength != null">
+                and b.bridge_length = #{bridgeLength}
+            </if>
+            <if test="bridgeWidth != null">
+                and b.bridge_width = #{bridgeWidth}
+            </if>
+            <if test="designLife != null">
+                and b.design_life = #{designLife}
+            </if>
+            <if test="designLoad != null">
+                and b.design_load = #{designLoad}
+            </if>
+            <if test="directInspector != null">
+                and b.direct_inspector = #{directInspector}
+            </if>
+            <if test="bridgeTypeName != null">
+                and bt.bridge_type_name = #{bridgeTypeName}
+            </if>
+        </where>
+
+
+    </select>
+    <select id="getBridgeById" resultType="com.example.springboot.entity.BridgeInfo">
+        select
+            b.bridge_id as bridge_id,
+            bt.bridge_type_name as bridge_type_name,
+            b.bridge_name as bridge_name,
+            b.bridge_address as bridge_address,
+            b.create_date as create_date,
+            b.bridge_type as bridge_type,
+            b.bridge_length as bridge_length,
+            b.bridge_width as bridge_width,
+            b.design_life as design_life,
+            b.design_load as design_load,
+            b.direct_inspector as direct_inspector
+        from bridge b
+                 join bridge_type bt on b.bridge_type = bt.bridge_type_id
+        where b.bridge_id = #{id}
+    </select>
+    <select id="getBridgeList" resultType="com.example.springboot.entity.BridgeInfo">
+        select
+            b.*,
+            bt.bridge_type_name as bridge_type_name
+        from bridge b
+                 join bridge_type bt on b.bridge_type = bt.bridge_type_id
+
+    </select>
+    <select id="getBridgeCountByType" resultType="java.lang.Integer">
+        select count(*) from bridge where bridge_type = #{bridgeType}
+    </select>
+
+</mapper>
